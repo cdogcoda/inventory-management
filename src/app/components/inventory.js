@@ -7,13 +7,13 @@ function Inventory({ inventory, theme, removeItem }) {
       return (inventory.map(({name, quantity}) => (
         <Box
           key={name}
-          width='100%'
+          width={'100%'}
           minHeight='150px'
           display={'flex'}
           justifyContent={'space-between'}
           alignItems={'center'}
           bgcolor={'#f0f0f0'}
-          padding={'24px'}
+          padding={'48px'}
           borderTop={'2px solid black'}
         >
           <Typography
@@ -24,7 +24,7 @@ function Inventory({ inventory, theme, removeItem }) {
             {name.charAt(0).toUpperCase() + name.slice(1)}
           </Typography>
           <Typography
-            variant='h3'
+            variant='h4'
             color={'#333'}
             textAlign={'center'}
           >

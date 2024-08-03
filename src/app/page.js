@@ -261,7 +261,9 @@ export default function Home() {
         </Box>
       </Modal>
       <Stack
-        width={'800px'}
+        width={'75%'}
+        maxWidth={'800px'}
+        minWidth={'400px'}
         direction={'row'}
         display={'flex'}
         justifyContent={'space-between'}
@@ -287,12 +289,15 @@ export default function Home() {
       </Stack>
       
       <Box
+        width={'75%'}
+        maxWidth={'800px'}
+        minWidth={'400px'}
         borderRadius={'24px'}
         boxShadow={'0px 0px 12px rgba(0,0,0,.25)'}
       >
         <Box
-          width='800px'
-          height='100px'
+          width='100%'
+          padding={'16px'}
           bgcolor={'lightpink'}
           display={'flex'}
           justifyContent={'center'}
@@ -308,7 +313,7 @@ export default function Home() {
           </Typography>
         </Box>
         <Stack
-          width='800px'
+          width='100%'
           height='400px'
           spacing={0}
           overflow={'auto'}
