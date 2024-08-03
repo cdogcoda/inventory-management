@@ -3,10 +3,16 @@
 'use client';
 
 import { useState, useEffect } from "react"
-import { Box, Stack, Typography, Button, Modal, TextField, createTheme, ThemeProvider, createMuiTheme } from '@mui/material'
+import { Box, Stack, Typography, Button, Modal, TextField, createTheme, ThemeProvider, } from '@mui/material'
 import { firestore } from './firebase'
 import { collection, doc, getDocs, query, setDoc, deleteDoc, getDoc } from 'firebase/firestore'
-import { Inventory } from './components/inventory'
+import { DataTable } from './components/datatable'
+import {
+  randomCreatedDate,
+  randomTraderName,
+  randomId,
+  randomArrayItem,
+} from '@mui/x-data-grid-generator';
 
 const style = {
   position: 'absolute',
@@ -76,12 +82,15 @@ const theme = createTheme({
 })
 
 
-
 export default function Home() {
+  
+
   const [inventory, setInventory] = useState([])
-  const [open, setOpen] = useState(false)
   const [itemName, setItemName] = useState('')
   const [searchItemName, setSearchItemName] = useState('')
+
+  const [rows, setRows] = useState([]);
+  const [rowModesModel, setRowModesModel] = useState({});
 
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, 'inventory'))
@@ -199,11 +208,6 @@ export default function Home() {
 
   }
 
-    
-  
-
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -216,63 +220,12 @@ export default function Home() {
       gap={2}
       bgcolor={'#FEEEED'}
     >
-      <Modal
-        theme={theme}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
-      >
-        <Box
-          sx={style} 
-        >
-          <Typography
-            id='modal-modal-title'
-            variant='h6'
-            component='h2'
-          >
-            Add Item
-          </Typography>
-          <Stack
-            width='100%'
-            direction={'row'}
-            spacing={2}
-          >
-            <TextField
-              id='outlined-basic'
-              label='Item'
-              variant='outlined'
-              fullWidth
-              value={itemName}
-              onChange={(e) => setItemName(e.target.value)}
-            />
-            <Button
-              theme={theme}
-              variant="pretty"
-              onClick={() => {
-                addItem(itemName)
-                setItemName('')
-                handleClose()
-              }}
-            >
-              Add
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
       <Stack
         width={'800px'}
         direction={'row'}
         display={'flex'}
         justifyContent={'space-between'}
       >
-        <Button
-          theme={theme}
-          variant="pretty"
-          onClick={handleOpen}
-        >
-          Add
-        </Button>
         <TextField 
           theme={theme}
           id="outlined-basic" 
@@ -311,11 +264,25 @@ export default function Home() {
           width='800px'
           height='400px'
           spacing={0}
-          overflow={'auto'}
           borderRadius={'0px 0px 24px 24px'}
-          display={'flex'}
         >
-          <Inventory inventory={inventory} theme={theme} removeItem={removeItem}></Inventory>
+          <DataTable 
+            theme={theme} 
+            rows={rows} 
+            setRows={setRows} 
+            rowModesModel={rowModesModel} 
+            setRowModesModel={setRowModesModel} 
+            inventory={inventory} 
+            setInventory={setInventory} 
+            itemName={itemName} 
+            setItemName={setItemName} 
+            searchItemName={searchItemName} 
+            setSearchItemName={setSearchItemName} 
+            addItem={addItem} 
+            removeItem={removeItem} 
+            searchItem={searchItem}
+          />
+
         </Stack>
       </Box>
     </Box>
@@ -323,3 +290,4 @@ export default function Home() {
     
   )
 }
+

@@ -1,3 +1,5 @@
+// src/components/inventory.js
+
 'use client'
 
 import { Box, Typography, Button } from '@mui/material'
