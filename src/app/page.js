@@ -292,6 +292,7 @@ export default function Home() {
         width={'75%'}
         maxWidth={'800px'}
         minWidth={'400px'}
+        maxHeight={'75%'}
         borderRadius={'24px'}
         boxShadow={'0px 0px 12px rgba(0,0,0,.25)'}
       >
